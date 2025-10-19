@@ -1,136 +1,133 @@
 console.clear();
 const prompt = require('prompt-sync')();
-//Variaveis para escolha
-let repete = 'sim';
-const jokenpo = ['Pedra', 'Papel', 'Tesoura'];
 
-//Declaração para repetição 
-while (repete == 's' || repete == 'sim') {
-//Variaveis de contagem
-  let pontosJogador=0 ;
-  let pontosComputador=0 ;
-  let pontosEmpate=0 ;
- //Explicação
-console.log('✊ ✌ ✋ ✊ ✌ ✋PEDRA PAPEL TESOURA✊ ✌ ✋ ✊ ✌ ✋');
-console.log();
-console.log('Dois jogadores escolhem entre Pedra✊, Papel✋ e Tesoura✌.');
-console.log('Cada escolha possui um força, uma equivalência e uma fraqueza.');
-console.log('Pedra✊ ganha de Tesoura✌, Tesoura✌ ganha de Papel✋, Papel✋ ganha de Pedra✊.');
-console.log('Tesoura✌ perde para Pedra✊, Pedra✊ perde para Papel✋, Papel✋ perde para Tesoura✌.');
-console.log();
-   
-  //Escolha de rodadas
-  let rodadas = +prompt('Escolha a quantidade de rodadas:  ');
-  //Declaração para repetição das rodadas
-  for (i = 1; i <= rodadas; i++) {
-    //Escolha aleatória do PC
-    let comp = Math.round(Math.random() * 2) + 1
-    
-    if (comp === 1) {
-      comp = jokenpo[0]
-    }
-    else if (comp === 2) {
-      comp = jokenpo[1]
-    }
-    else if (comp === 3) {
-      comp = jokenpo[2]
-    }
-    //Escolha do Jogador
-    console.log();
-    let jogador = +prompt('Digite:[1]-Para PEDRA, [2]-Para PAPEL e [3]-Para TESOURA:    ');
+const ESCOLHAS = ['Pedra', 'Papel', 'Tesoura'];
+const REGRAS = {
+    'Pedra': { vence: 'Tesoura', perdePara: 'Papel' },
+    'Papel': { vence: 'Pedra', perdePara: 'Tesoura' },
+    'Tesoura': { vence: 'Papel', perdePara: 'Pedra' }
+};
 
-    while (jogador != 1 && jogador != 2 && jogador != 3) {
-      console.log("Insira uma opção valida!")
-      jogador = +prompt("Para selecionar sua opção digite o numero:Para PEDRA, [2]-Para PAPEL e [3]-Para TESOURA:");
-    }
-
-    if (jogador === 1) {
-      jogador = jokenpo[0]
-    }
-    else if (jogador === 2) {
-      jogador = jokenpo[1]
-    }
-    else if (jogador === 3) {
-      jogador = jokenpo[2]
-    }
-    //Exibição da escolha do Jogador
-    console.log('Você escolheu: ', jogador);
-    console.log();
-    //Exibição da escolha do PC
-    console.log('o computador escolheu: ', comp);
-    console.log();
-    //Declaração das Variaveis de resultado
-    let vence = ('Você venceu essa rodada!. ♡＾▽＾♡');
-    let empate = ('Houve empate nessa rodada. (乛-乛)');
-    let perde = ('Você perdeu. ಥﭛಥ ');
-    //Declaração das condições
-    if (comp === jokenpo[0] && jogador === jokenpo[0]) {
-      console.log('Pedra✊ com Pedra✊ ',empate);
-      pontosEmpate++;
-    }
-    else if (comp === jokenpo[0] && jogador === jokenpo[1]) {
-      console.log('Papel✋ embrulha Pedra✊. ',vence)
-      pontosJogador++
-    }
-    else if (comp === jokenpo[0] && jogador === jokenpo[2]) {
-      console.log('Pedra✊ quebra Tesoura✌. ',perde);
-      pontosComputador++;
-    }
-    else if (comp === jokenpo[1] && jogador === jokenpo[1]) {
-      console.log('Papel✋ com Papel✋. ',empate);
-      pontosEmpate++;
-    }
-    else if (comp === jokenpo[1] && jogador === jokenpo[0]) {
-      console.log('Papel✋ embrulha Pedra✊. ',perde);
-      pontosComputador++;
-    }
-    else if (comp === jokenpo[1] && jogador === jokenpo[2]) {
-      console.log('Tesoura✌ corta Papel✋. ',vence);
-      pontosJogador++;
-    }
-    else if (comp === jokenpo[2] && jogador === jokenpo[2]) {
-      console.log('Tesoura✌ com Tesoura✌. ',empate);
-      pontosEmpate++;
-    }
-    else if (comp === jokenpo[2] && jogador === jokenpo[1]) {
-      console.log('Tesoura✌ corta Papel✋. ',perde);
-      pontosComputador++;
-    }
-    else if (comp === jokenpo[2] && jogador === jokenpo[0]) {
-      console.log('Pedra✊ quebra tesoura✌. ',vence)
-      pontosJogador++;
-    }
-  }
-    console.log();
-    console.log('➤  FIM DAS RODADAS');
-    console.log('Foram jogadas ',rodadas, 'rodadas.');
-    console.log();
-    console.log();
-    console.log('JOGADOR:',pontosJogador,'pontos');
-    console.log('COMPUTADOR:',pontosComputador, 'pontos');
-    console.log('EMPATE:',pontosEmpate, 'pontos');
-
-
-  if (pontosJogador > pontosComputador) {
-    console.log('VOCÊ VENCEU! PARABÉNS!     (• ε •)')
-  }
-  else if (pontosJogador < pontosComputador) {
-    console.log('VOCÊ PERDEU! SINTO MUITO.    ¯\_(ツ)_/¯')
-  }
-  else if (pontosComputador === pontosJogador) {
-    console.log('O jogo terminou Empatado!     ╰(◣﹏◢)╯')
-  }
-  do {
-    repete = prompt('<<<<SIM<<<<<<<< NOVO JOGO? >>>>>>>>NÃO>>>>').toLowerCase();
-    console.clear();
-  } while (
-    repete!= 's' && repete != 'sim' &&
-    repete != 'n' && repete != 'nao'
-  );
-
-  // ENCERRANDO O JOGO
-  if (repete == 'n' || repete == 'nao') {
-    console.log('✊ ✌ ✋ ✊ ✌ ✋FIM DE JOGO✊ ✌ ✋ ✊ ✌ ✋');
-   
-  }
+function exibirCabecalho() {
+    console.log('=================================================');
+    console.log('✊ ✌ ✋         JOKENPÔ - O JOGO          ✋ ✌ ✊');
+    console.log('=================================================');
+    console.log('\nDois jogadores escolhem entre Pedra✊, Papel✋ e Tesoura✌.');
+    console.log('Pedra✊ ganha de Tesoura✌, Tesoura✌ ganha de Papel✋, e Papel✋ ganha de Pedra✊.\n');
 }
+
+function obterNumeroDeRodadas() {
+    let rodadas;
+    while (true) {
+        rodadas = parseInt(prompt('Escolha a quantidade de rodadas: '), 10);
+        if (!isNaN(rodadas) && rodadas > 0) {
+            return rodadas;
+        }
+        console.log("Por favor, insira um número válido de rodadas.");
+    }
+}
+
+function obterEscolhaJogador() {
+    while (true) {
+        console.log('\n[1] - Pedra ✊');
+        console.log('[2] - Papel ✋');
+        console.log('[3] - Tesoura ✌');
+        const escolha = parseInt(prompt('Sua escolha: '), 10);
+
+        if (escolha >= 1 && escolha <= 3) {
+            return ESCOLHAS[escolha - 1];
+        }
+        console.log("Opção inválida! Escolha entre 1, 2 ou 3.");
+    }
+}
+
+function obterEscolhaComputador() {
+    const indiceAleatorio = Math.floor(Math.random() * ESCOLHAS.length);
+    return ESCOLHAS[indiceAleatorio];
+}
+
+function determinarVencedor(escolhaJogador, escolhaComputador) {
+    if (escolhaJogador === escolhaComputador) {
+        return 'empate';
+    }
+    if (REGRAS[escolhaJogador].vence === escolhaComputador) {
+        return 'jogador';
+    }
+    return 'computador';
+}
+
+function exibirResultadoRodada(vencedor, escolhaJogador, escolhaComputador) {
+    console.log(`\nVocê escolheu: ${escolhaJogador}`);
+    console.log(`O computador escolheu: ${escolhaComputador}\n`);
+
+    switch (vencedor) {
+        case 'jogador':
+            console.log(`✨ ${escolhaJogador} ganha de ${escolhaComputador}. Você venceu a rodada! ✨`);
+            break;
+        case 'computador':
+            console.log(`🔥 ${escolhaComputador} ganha de ${escolhaJogador}. Você perdeu a rodada. 🔥`);
+            break;
+        case 'empate':
+            console.log('👀 Rodada empatada! 👀');
+            break;
+    }
+    console.log('-------------------------------------------------');
+}
+
+function exibirResultadoFinal(pontosJogador, pontosComputador) {
+    console.log('\n=================================================');
+    console.log('                   FIM DE JOGO');
+    console.log('=================================================\n');
+    console.log(`PONTUAÇÃO FINAL:`);
+    console.log(`Você: ${pontosJogador} ponto(s)`);
+    console.log(`Computador: ${pontosComputador} ponto(s)\n`);
+
+    if (pontosJogador > pontosComputador) {
+        console.log('🏆 PARABÉNS! Você foi o grande campeão! 🏆');
+    } else if (pontosComputador > pontosJogador) {
+        console.log('🤖 O computador venceu desta vez. Tente novamente! 🤖');
+    } else {
+        console.log('🤝 O jogo terminou em empate! 🤝');
+    }
+    console.log('\n=================================================\n');
+}
+
+function jogar() {
+    let jogarNovamente = 'sim';
+
+    while (jogarNovamente.toLowerCase() === 's' || jogarNovamente.toLowerCase() === 'sim') {
+        console.clear();
+        exibirCabecalho();
+
+        const numeroDeRodadas = obterNumeroDeRodadas();
+        let pontosJogador = 0;
+        let pontosComputador = 0;
+
+        for (let i = 1; i <= numeroDeRodadas; i++) {
+            console.log(`\n--- Rodada ${i} de ${numeroDeRodadas} ---`);
+            const escolhaJogador = obterEscolhaJogador();
+            const escolhaComputador = obterEscolhaComputador();
+            const vencedor = determinarVencedor(escolhaJogador, escolhaComputador);
+
+            if (vencedor === 'jogador') {
+                pontosJogador++;
+            } else if (vencedor === 'computador') {
+                pontosComputador++;
+            }
+
+            exibirResultadoRodada(vencedor, escolhaJogador, escolhaComputador);
+        }
+
+        exibirResultadoFinal(pontosJogador, pontosComputador);
+
+        do {
+            jogarNovamente = prompt('Deseja jogar novamente? (Sim/Não): ');
+        } while (
+            jogarNovamente.toLowerCase() !== 's' && jogarNovamente.toLowerCase() !== 'sim' &&
+            jogarNovamente.toLowerCase() !== 'n' && jogarNovamente.toLowerCase() !== 'nao'
+        );
+    }
+    console.log('Obrigado por jogar Jokenpô! Até a próxima!\n');
+}
+
+jogar();
