@@ -1,4 +1,3 @@
-# Projeto-2--EdBlueTech
 # ✊✌️✋ JoKenPô - O Jogo ✋✌️✊
 
 ![JoKenPô](https://img.shields.io/badge/Jogo-JoKenPô-blue?style=for-the-badge)
